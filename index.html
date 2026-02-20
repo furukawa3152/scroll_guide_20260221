@@ -148,6 +148,21 @@
             margin-top: 4px;
         }
         
+        .hero-cta-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .hero-cta.secondary {
+            background: #3498db;
+        }
+        
+        .hero-cta.secondary:hover {
+            background: #2980b9;
+        }
+        
         .for-visitors {
             background: #f0f7ff;
             padding: 24px;
@@ -447,10 +462,16 @@
     <div class="wrapper">
         <div class="container">
         <img src="images/hero.png" alt="Scroll - HAGAKUREプログラミング塾のブログ" class="hero-image">
-        <a href="https://hagakurepgm.net/blog/" target="_blank" rel="noopener noreferrer" class="hero-cta">
-            📖 Scrollブログを見る
-            <span class="hero-cta-sub">HAGAKUREプログラミング塾のブログサイト（外部リンク）</span>
-        </a>
+        <div class="hero-cta-wrap">
+            <a href="https://hagakurepgm.net/blog/" target="_blank" rel="noopener noreferrer" class="hero-cta">
+                📖 Scrollブログを見る
+                <span class="hero-cta-sub">HAGAKUREプログラミング塾のブログサイト（外部リンク）</span>
+            </a>
+            <a href="https://scroll-blog-writer.streamlit.app/" target="_blank" rel="noopener noreferrer" class="hero-cta secondary">
+                ✏️ ブログ執筆支援アプリ
+                <span class="hero-cta-sub">テンプレートで記事の構成を一緒に考える（外部リンク）</span>
+            </a>
+        </div>
         
         <div class="header">
             <div class="header-left">
@@ -603,6 +624,7 @@
         
         <h2 id="section-links">🔗 リンク</h2>
         <a href="https://hagakurepgm.net/blog/" class="link-button">Scrollブログサイトへ</a>
+        <a href="https://scroll-blog-writer.streamlit.app/" target="_blank" rel="noopener noreferrer" class="link-button secondary">ブログ執筆支援アプリで記事を考える</a>
         
         <div class="note" style="margin-top: 40px;">
             <p><strong>💬 困ったことがあれば</strong></p>
