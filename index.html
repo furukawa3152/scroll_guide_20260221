@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll 書き方ガイド - HAGAKUREプログラミング塾</title>
+    
+    <!-- OGP (Open Graph Protocol) -->
+    <meta property="og:title" content="Scroll 書き方ガイド - HAGAKUREプログラミング塾">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Scrollは、HAGAKUREプログラミング塾の参加者が運営するブログサイトです。技術的なことだけでなく、何でも書いてOKです！おすすめスポット、食べ物、日常の気づきなど、自由に投稿してください。">
+    <meta property="og:url" content="https://hagakurepgm.net/blog/guide">
+    <meta property="og:image" content="https://hagakurepgm.net/blog/guide/images/scroll_logo.png">
+    <meta property="og:site_name" content="HAGAKUREプログラミング塾">
+    <meta property="og:locale" content="ja_JP">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Scroll 書き方ガイド - HAGAKUREプログラミング塾">
+    <meta name="twitter:description" content="Scrollは、HAGAKUREプログラミング塾の参加者が運営するブログサイトです。技術的なことだけでなく、何でも書いてOKです！">
+    <meta name="twitter:image" content="https://hagakurepgm.net/blog/guide/images/scroll_logo.png">
+    
+    <!-- その他のメタタグ -->
+    <meta name="description" content="Scrollは、HAGAKUREプログラミング塾の参加者が運営するブログサイトです。技術的なことだけでなく、何でも書いてOKです！おすすめスポット、食べ物、日常の気づきなど、自由に投稿してください。">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #f5f7fa;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .wrapper {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        
+        .container {
+            flex: 1;
+            max-width: 900px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 40px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .sidebar {
+            position: sticky;
+            top: 20px;
+            width: 250px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 20px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+        
+        .sidebar h3 {
+            color: #2c3e50;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e8f4f8;
+        }
+        
+        .toc {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 8px;
+        }
+        
+        .toc a {
+            display: block;
+            color: #555;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        
+        .toc a:hover {
+            background: #e8f4f8;
+            color: #2c3e50;
+        }
+        
+        .toc a.active {
+            background: #2c3e50;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .hero-image {
+            width: 100%;
+            max-height: 320px;
+            object-fit: cover;
+            object-position: center top;
+            border-radius: 12px 12px 0 0;
+            margin: -40px -40px 0 -40px;
+            display: block;
+        }
+        
+        .hero-cta {
+            display: block;
+            text-align: center;
+            margin: 20px 0 0;
+            padding: 16px 24px;
+            background: #2c3e50;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-radius: 8px;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 12px rgba(44, 62, 80, 0.25);
+        }
+        
+        .hero-cta:hover {
+            background: #34495e;
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        .hero-cta .hero-cta-sub {
+            display: block;
+            font-size: 0.85em;
+            font-weight: normal;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+        
+        .for-visitors {
+            background: #f0f7ff;
+            padding: 24px;
+            border-radius: 8px;
+            margin: 24px 0 30px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .for-visitors h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+        
+        .for-visitors p {
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+        
+        .for-visitors p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #e8f4f8;
+        }
+        
+        .header-left {
+            flex: 1;
+        }
+        
+        .header-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-right: 50px;
+        }
+        
+        .character-img {
+            width: 120px;
+            height: auto;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+        }
+        
+        .logo-img {
+            width: 120px;
+            height: auto;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.2));
+        }
+        
+        h1 {
+            color: #2c3e50;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #e8f4f8;
+            font-size: 1.6em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-character {
+            width: 40px;
+            height: auto;
+            filter: drop-shadow(0 3px 8px rgba(0,0,0,0.15));
+        }
+        
+        .step-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border: 2px solid #e8f4f8;
+        }
+        
+        h3 {
+            color: #555;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .intro {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #2c3e50;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .intro-character {
+            width: 60px;
+            height: auto;
+            flex-shrink: 0;
+            filter: drop-shadow(0 3px 8px rgba(0,0,0,0.15));
+        }
+        
+        .step {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2c3e50;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #2c3e50;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .template {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2c3e50;
+        }
+        
+        .template h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #e83e8c;
+        }
+        
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        pre code {
+            background: none;
+            color: #f8f8f2;
+            padding: 0;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        
+        .link-button {
+            display: inline-block;
+            background: #2c3e50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin: 10px 10px 10px 0;
+            transition: background 0.3s;
+        }
+        
+        .link-button:hover {
+            background: #34495e;
+        }
+        
+        .link-button.secondary {
+            background: #95a5a6;
+        }
+        
+        .link-button.secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .note {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .goal-box {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .goal-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        @media (max-width: 1200px) {
+            .sidebar {
+                display: none;
+            }
+            
+            .wrapper {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .hero-image {
+                margin: -20px -20px 0 -20px;
+                max-height: 200px;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .header-right {
+                margin-top: 15px;
+                margin-right: 0;
+            }
+            
+            .character-img {
+                width: 90px;
+            }
+            
+            .intro {
+                flex-direction: column;
+            }
+            
+            .intro-character {
+                width: 50px;
+                margin-bottom: 10px;
+            }
+            
+            .section-character {
+                width: 30px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            h2 {
+                font-size: 1.4em;
+            }
+            
+            .step-image {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+        <img src="images/hero.png" alt="Scroll - HAGAKUREプログラミング塾のブログ" class="hero-image">
+        <a href="https://hagakurepgm.net/blog/" target="_blank" rel="noopener noreferrer" class="hero-cta">
+            📖 Scrollブログを見る
+            <span class="hero-cta-sub">HAGAKUREプログラミング塾のブログサイト（外部リンク）</span>
+        </a>
+        
+        <div class="header">
+            <div class="header-left">
+                <img src="images/scroll_logo.png" alt="Scroll Logo" class="logo-img">
+                <h1>📝 Scroll 書き方ガイド</h1>
+            </div>
+            <div class="header-right">
+                <img src="images/voice-samurai.png" alt="侍" class="character-img">
+            </div>
+        </div>
+        
+        <div class="for-visitors">
+            <h3>📖 このページについて</h3>
+            <p><strong>Scroll</strong>は、<strong>HAGAKUREプログラミング塾</strong>の参加者が運営するブログサイトです。技術記事だけでなく、おすすめスポット・食べ物・日常の気づきなど、何でも書いてOK。このガイドは「記事を書きたい参加者」向けの手順です。ブログそのものはどなたでも閲覧できます。</p>
+        </div>
+        
+        <div class="intro">
+            <img src="images/machi-musume.png" alt="町娘" class="intro-character">
+            <div>
+                <p><strong>Scroll</strong>は、HAGAKUREプログラミング塾の参加者が運営するブログサイトです。</p>
+                <p>技術的なことだけでなく、<span class="highlight">何でも書いてOK</span>です！おすすめスポット、食べ物、日常の気づきなど、自由に投稿してください。</p>
+            </div>
+        </div>
+        
+        <div class="goal-box">
+            <h3>🎯 2026年の目標</h3>
+            <p>年間で<strong>追加80記事</strong>、<strong>ユニークライター数20名</strong>を目指しています！</p>
+            <p>みんなで一緒に盛り上げていきましょう！</p>
+        </div>
+        
+        <div class="note" style="margin-top: 30px; margin-bottom: 30px;">
+            <p><strong>📊 ブログカウンター</strong></p>
+            <p>目標達成の進捗をリアルタイムで確認できるブログカウンターページがあります！</p>
+            <p>現在のブログ数やライター数、目標達成率をチェックして、みんなで盛り上げていきましょう！</p>
+            <a href="https://blogcounter.hagakurepgm.net/" target="_blank" rel="noopener noreferrer" class="link-button" style="margin-top: 15px;">ブログカウンターを見る</a>
+        </div>
+        
+        <h2 id="section-start">
+            <img src="images/voice-samurai.png" alt="侍" class="section-character">
+             はじめに
+        </h2>
+        
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>ログイン</strong>
+            <p>Scrollサイトにアクセスして、右上の「記事を書く」ボタンからログインします。</p>
+            <p>コミュニティに登録したアドレスでGoogleアカウントを使用してログインが可能です。<br>
+            もしログインできない場合は、運営古川までお知らせください。</p>
+            <img src="images/login_button.png" alt="ログインボタンの位置" class="step-image">
+        </div>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>プロフィール編集</strong>
+            <p>初回ログイン時は、画面左下のアカウントアイコンからプロフィールを編集しておきましょう。<br>表示名やアイコン画像を設定できます。</p>
+            <img src="images/account.png" alt="アカウント設定画面" class="step-image">
+        </div>
+        
+        <div class="step">
+            <span class="step-number">3</span>
+            <strong>記事作成</strong>
+            <p>画面左の「ページ」をクリックし、「blog」フォルダに入ります。➕ボタンで「子ページを追加」で新しい記事を作成します。マークダウン形式で書くことができます。</p>
+            <img src="images/blog_ui.png" alt="ブログ作成画面" class="step-image">
+        </div>
+        
+        <h2 id="section-writing">
+            <img src="images/voice-ninja1.png" alt="忍者1" class="section-character">
+            記事の書き方
+        </h2>
+        
+        <h3>基本的な構成</h3>
+        <p>記事は以下のような構成で書くと読みやすくなります：</p>
+        <ul>
+            <li><strong>タイトル</strong>：記事の内容が一目でわかるタイトル</li>
+            <li><strong>本文</strong>：マークダウン形式で自由に記述</li>
+            <li><strong>タグ</strong>：関連するタグを3〜5個程度付ける</li>
+        </ul>
+        
+        <h3>マークダウンの基本</h3>
+        <pre><code># 見出し1
+## 見出し2
+### 見出し3
+
+**太字**
+*斜体*
+
+- 箇条書き
+- 項目2
+
+1. 番号付きリスト
+2. 項目2
+
+[リンクテキスト](URL)
+
+![画像の説明](画像URL)</code></pre>
+        
+        <h2 id="section-tags">🏷️ タグの付け方</h2>
+        <p>タグは記事の内容に関連するものを3〜5個程度付けましょう。例：</p>
+        <ul>
+            <li><code>Python</code>、<code>JavaScript</code>（技術系）</li>
+            <li><code>AI</code>、<code>LLM</code>（トピック系）</li>
+            <li><code>作ってみた</code>、<code>使ってみた</code>（カテゴリ系）</li>
+            <li><code>初心者</code>、<code>Tips</code>（難易度・種類系）</li>
+        </ul>
+        
+        <div class="note">
+            <strong>💡 ヒント</strong>：既存の記事のタグを参考にすると、統一感が出ます！
+        </div>
+        
+        <h2 id="section-images">🖼️ 画像、コードブロックの追加方法</h2>
+        <div class="step">
+            <strong>➕ボタンから画像、コードブロブロックを選択。</strong>
+            <p>マークダウンのコードブロックでは崩れることがあるので、専用ブロックを使用してください。</p>
+        </div>
+        
+        
+        <img src="images/block.png" alt="ブロック追加メニュー" class="step-image" style="margin-top: 20px;">
+        
+        <h2 id="section-publish">📤 公開方法</h2>
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>下書き保存</strong>
+            <p>「下書き保存」で途中まで保存できます。<br>一度下書きを保存したら、AIレビューボタンを押すことで公開前でもHAGAKURE君のレビューが受けられます。</p>
+            <img src="images/AIbutton.png" alt="AIレビューボタン" class="step-image" style="margin-top: 15px;">
+        </div>
+        
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>公開</strong>
+            <p>「公開」ボタンを押すと、記事が公開されます！</p>
+        </div>
+        
+        <div class="note">
+            <strong>⚠️ 注意</strong>：公開後も編集・削除は可能です。気軽に投稿してください！
+        </div>
+        
+        <h2 id="section-faq">❓ よくある質問</h2>
+        
+        <h3>Q: 技術的な内容でないとダメですか？</h3>
+        <p><strong>A:</strong> いいえ！何でも書いてOKです。おすすめスポット、食べ物、日常の気づきなど、自由に投稿してください。</p>
+        
+        <h3>Q: 短い記事でも大丈夫ですか？</h3>
+        <p><strong>A:</strong> はい！短い記事でも全く問題ありません。気軽に投稿してください。</p>
+        
+        <h3>Q: 下書きは保存できますか？</h3>
+        <p><strong>A:</strong> はい、「下書き保存」機能で途中まで保存できます。</p>
+        
+        <h3>Q: タグは何個付ければいいですか？</h3>
+        <p><strong>A:</strong> ４個までつけられます。少なすぎても検索性が下がるので、適度に付けましょう。</p>
+        
+        <h2 id="section-links">🔗 リンク</h2>
+        <a href="https://hagakurepgm.net/blog/" class="link-button">Scrollブログサイトへ</a>
+        
+        <div class="note" style="margin-top: 40px;">
+            <p><strong>💬 困ったことがあれば</strong></p>
+            <p>Slackの「#Web開発」チャンネル等で気軽に質問してください！</p>
+            <p>みんなで助け合いながら、楽しくブログを書いていきましょう！</p>
+        </div>
+        
+        <h2 id="section-templates">
+            <img src="images/voice-ninja2.png" alt="忍者2" class="section-character">
+            テンプレート集
+        </h2>
+        <p>記事を書きやすくするためのテンプレートです。コピーして使ってください！</p>
+        
+        <div class="template">
+            <h3>🔧 「やってみた」「作ってみた」テンプレート</h3>
+            <pre><code># [タイトル] をやってみた / 作ってみた
+
+## 目的・課題
+何を目的に、どんな課題を解決しようとしたか
+
+## 解決したいこと
+具体的に解決したい問題や実現したいこと
+
+## 解決方法
+どのように解決したか、実装の手順や方法
+
+## できないこと
+現時点でできないこと、制限事項、今後の課題
+
+## 使用技術
+使用した技術、ツール、ライブラリなど</code></pre>
+        </div>
+        
+        <div class="template">
+            <h3>💡 「気づき・学び」テンプレート</h3>
+            <pre><code># [テーマ] について思ったこと
+
+## 何があったか
+きっかけとなった出来事や経験
+
+## 気づいたこと
+- 気づき1
+- 気づき2
+
+## これからどうしたいか
+今後のアクションや考え</code></pre>
+        </div>
+        
+        <div class="template">
+            <h3>🍔 「日常・雑談」テンプレート</h3>
+            <pre><code># [タイトル]
+
+## 今日あったこと
+- 出来事1
+- 出来事2
+
+## 感想
+思ったこと、感じたこと
+
+## まとめ
+一言でまとめると</code></pre>
+        </div>
+        
+        <hr style="margin: 40px 0; border: none; border-top: 2px solid #eee;">
+        
+        <p style="text-align: center; color: #999; font-size: 0.9em;">
+            © HAGAKUREプログラミング塾 | Scroll 書き方ガイド
+        </p>
+    </div>
+    
+    <aside class="sidebar">
+        <h3>📑 目次</h3>
+        <ul class="toc">
+            <li><a href="#section-start">はじめに</a></li>
+            <li><a href="#section-writing">記事の書き方</a></li>
+            <li><a href="#section-tags">タグの付け方</a></li>
+            <li><a href="#section-images">画像・コードブロック</a></li>
+            <li><a href="#section-publish">公開方法</a></li>
+            <li><a href="#section-faq">よくある質問</a></li>
+            <li><a href="#section-links">リンク</a></li>
+            <li><a href="#section-templates">テンプレート集</a></li>
+        </ul>
+    </aside>
+    </div>
+    
+    <script>
+        // スムーズスクロール
+        document.querySelectorAll('.toc a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop - 20;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // スクロール位置に応じてアクティブなセクションをハイライト
+        const sections = document.querySelectorAll('h2[id]');
+        const tocLinks = document.querySelectorAll('.toc a');
+        
+        function updateActiveSection() {
+            let current = '';
+            const scrollPosition = window.pageYOffset + 150;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveSection);
+        window.addEventListener('load', updateActiveSection);
+    </script>
+</body>
+</html>
