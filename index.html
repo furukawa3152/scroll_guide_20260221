@@ -109,21 +109,48 @@
             font-weight: bold;
         }
         
+        .hero-fullwidth {
+            margin-left: -40px;
+            margin-right: -40px;
+            margin-bottom: 32px;
+            width: calc(100% + 80px);
+        }
+        
+        .top-eyecatch {
+            margin-bottom: 0;
+            padding: 32px 24px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+        }
+        
+        .top-eyecatch .hero-heading {
+            margin: 0;
+            padding: 0;
+            font-size: clamp(1.5rem, 4.5vw, 2.5rem);
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.35;
+            letter-spacing: 0.04em;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
         .hero-image {
             width: 100%;
             max-height: 320px;
             object-fit: cover;
             object-position: center top;
-            border-radius: 12px 12px 0 0;
-            margin: -40px -40px 0 -40px;
+            border-radius: 0;
             display: block;
         }
         
         .hero-cta {
             display: block;
+            flex: 1 1 0;
+            min-width: 220px;
             text-align: center;
             margin: 20px 0 0;
-            padding: 16px 24px;
+            padding: 16px 20px;
             background: #2c3e50;
             color: white;
             text-decoration: none;
@@ -151,8 +178,10 @@
         .hero-cta-wrap {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 16px;
             margin-top: 20px;
+            padding: 0 40px;
+            align-items: stretch;
         }
         
         .hero-cta.secondary {
@@ -169,10 +198,11 @@
             justify-content: center;
             gap: 20px;
             margin-top: 28px;
-            padding: 24px;
+            padding: 24px 40px;
             background: linear-gradient(135deg, #f8fbfd 0%, #e8f4f8 100%);
-            border-radius: 12px;
+            border-radius: 0 0 12px 12px;
             border: 2px solid #e8f4f8;
+            border-top: none;
         }
         
         .hero-qr img {
@@ -456,9 +486,27 @@
                 padding: 20px;
             }
             
+            .hero-fullwidth {
+                margin-left: -20px;
+                margin-right: -20px;
+                margin-bottom: 24px;
+                width: calc(100% + 40px);
+            }
+            
+            .top-eyecatch {
+                padding: 24px 16px;
+            }
+            
             .hero-image {
-                margin: -20px -20px 0 -20px;
                 max-height: 200px;
+            }
+            
+            .hero-cta-wrap {
+                padding: 0 20px;
+            }
+            
+            .hero-qr {
+                padding: 24px 20px;
             }
             
             .header {
@@ -505,15 +553,19 @@
 <body>
     <div class="wrapper">
         <div class="container">
-        <img src="images/hero.png" alt="Scroll - HAGAKUREプログラミング塾のブログ" class="hero-image">
-        <div class="hero-cta-wrap">
+        <div class="hero-fullwidth">
+            <section class="top-eyecatch" aria-label="ページのキャッチコピー">
+                <p class="hero-heading">HAGAKUREの技術ブログ、scrollのこと</p>
+            </section>
+            <img src="images/hero.png" alt="Scroll - HAGAKUREプログラミング塾のブログ" class="hero-image">
+            <div class="hero-cta-wrap">
             <a href="https://hagakurepgm.net/blog/" target="_blank" rel="noopener noreferrer" class="hero-cta">
                 📖 Scrollブログを見る
-                <span class="hero-cta-sub">HAGAKUREプログラミング塾のブログサイト（外部リンク）</span>
+                <span class="hero-cta-sub">HAGAKUREプログラミング塾のブログサイト<br>（外部リンク）</span>
             </a>
             <a href="https://scroll-blog-writer.streamlit.app/" target="_blank" rel="noopener noreferrer" class="hero-cta secondary">
                 ✏️ ブログ執筆支援アプリ
-                <span class="hero-cta-sub">テンプレートで記事の構成を一緒に考える（外部リンク）</span>
+                <span class="hero-cta-sub">テンプレートで記事の構成を一緒に考える<br>（外部リンク）</span>
             </a>
         </div>
         
@@ -523,6 +575,7 @@
                 <strong>📱 ここからも入れます</strong>
                 <span>ご自身の端末で読み取って、執筆支援アプリにお入りください。</span>
             </div>
+        </div>
         </div>
         
         <div class="header">
