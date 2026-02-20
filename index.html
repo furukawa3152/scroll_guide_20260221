@@ -163,6 +163,50 @@
             background: #2980b9;
         }
         
+        .hero-qr {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 28px;
+            padding: 24px;
+            background: linear-gradient(135deg, #f8fbfd 0%, #e8f4f8 100%);
+            border-radius: 12px;
+            border: 2px solid #e8f4f8;
+        }
+        
+        .hero-qr img {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        
+        .hero-qr-text {
+            text-align: left;
+        }
+        
+        .hero-qr-text strong {
+            display: block;
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin-bottom: 6px;
+        }
+        
+        .hero-qr-text span {
+            color: #555;
+            font-size: 0.95em;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-qr {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-qr-text { text-align: center; }
+            .hero-qr img { width: 120px; height: 120px; }
+        }
+        
         .for-visitors {
             background: #f0f7ff;
             padding: 24px;
@@ -471,6 +515,14 @@
                 ✏️ ブログ執筆支援アプリ
                 <span class="hero-cta-sub">テンプレートで記事の構成を一緒に考える（外部リンク）</span>
             </a>
+        </div>
+        
+        <div class="hero-qr">
+            <img src="images/QR.png" alt="ブログ執筆支援アプリのQRコード">
+            <div class="hero-qr-text">
+                <strong>📱 ここからも入れます</strong>
+                <span>ご自身の端末で読み取って、執筆支援アプリにお入りください。</span>
+            </div>
         </div>
         
         <div class="header">
